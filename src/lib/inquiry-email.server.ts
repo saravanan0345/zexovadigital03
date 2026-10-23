@@ -56,7 +56,7 @@ export function buildInquiryEmail(d: InquiryEmailData) {
 
 /** Emails the enquiry to the business inbox. Never throws: a failed email must not lose the enquiry. */
 export async function notifyNewInquiry(d: InquiryEmailData) {
-  const resendKey = process.env["RESEND_API_KEY"];
+  const resendKey = process.env["RESEND_API_KEY"]?.trim();
   if (!resendKey) {
     console.error("enquiry email skipped: RESEND_API_KEY is not configured");
     return;

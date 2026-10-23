@@ -3,7 +3,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Download, Search, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
+import {
+  fetchAdminEnquiries,
+  updateAdminEnquiryStatus,
+  deleteAdminEnquiry,
+  fetchAdminEnquiryNotes,
+  addAdminEnquiryNote,
+} from "@/lib/inquiries.functions";
 import { ENQUIRY_STATUSES, statusLabel, toCsv } from "@/lib/site-content";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,12 +40,8 @@ function Enquiries() {
   const { data = [], isLoading } = useQuery({
     queryKey: ["admin", "inquiries"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("inquiries")
-        .select("*")
-        .order("created_at", { ascending: false });
-      if (error) throw error;
-      return data;
+      const res = await fetchAdminEnquiries();
+      return res as Inq[];
     },
   });
   const list = data.filter(
@@ -159,37 +161,27 @@ function Detail({ inq, onClose }: { inq: Inq; onClose: () => void }) {
   const [kind, setKind] = useState("note");
   const notes = useQuery({
     queryKey: ["admin", "notes", inq.id],
-    queryFn: async () =>
-      (
-        await supabase
-          .from("enquiry_notes")
-          .select("*")
-          .eq("inquiry_id", inq.id)
-          .order("created_at", { ascending: false })
-      ).data ?? [],
+    queryFn: async () => {
+      const res = await fetchAdminEnquiryNotes({ data: { inquiry_id: inq.id } });
+      return res;
+    },
   });
   const saveStatus = useMutation({
     mutationFn: async (s: string) => {
-      const { error } = await supabase.from("inquiries").update({ status: s }).eq("id", inq.id);
-      if (error) throw error;
-      await supabase.from("enquiry_notes").insert({
-        inquiry_id: inq.id,
-        kind: "status",
-        body: `Status changed to ${statusLabel[s]}`,
-      });
+      await updateAdminEnquiryStatus({ data: { id: inq.id, status: s } });
     },
     onSuccess: () => {
       toast.success("Status updated");
       qc.invalidateQueries({ queryKey: ["admin"] });
+      notes.refetch();
     },
     onError: () => toast.error("Could not update status"),
   });
   const addNote = useMutation({
     mutationFn: async () => {
-      const { error } = await supabase
-        .from("enquiry_notes")
-        .insert({ inquiry_id: inq.id, kind, body: note.trim() });
-      if (error) throw error;
+      await addAdminEnquiryNote({
+        data: { inquiry_id: inq.id, kind, body: note.trim() },
+      });
     },
     onSuccess: () => {
       setNote("");
@@ -198,13 +190,13 @@ function Detail({ inq, onClose }: { inq: Inq; onClose: () => void }) {
     onError: () => toast.error("Could not save note"),
   });
   const del = async () => {
-    const { error } = await supabase.from("inquiries").delete().eq("id", inq.id);
-    if (error) {
+    try {
+      await deleteAdminEnquiry({ data: { id: inq.id } });
+      toast.success("Enquiry deleted");
+      onClose();
+    } catch {
       toast.error("Could not delete");
-      return;
     }
-    toast.success("Enquiry deleted");
-    onClose();
   };
 
   return (

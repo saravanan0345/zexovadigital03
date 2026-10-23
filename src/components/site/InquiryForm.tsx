@@ -33,6 +33,7 @@ export function InquiryForm({
       const errs: Record<string, string> = {};
       parsed.error.issues.forEach((i) => (errs[String(i.path[0])] = i.message));
       setErrors(errs);
+      toast.error("Please fill in all required fields (message must be at least 10 characters).");
       return;
     }
     setErrors({});
