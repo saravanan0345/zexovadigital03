@@ -1,0 +1,88 @@
+import { useQuery } from "@tanstack/react-query";
+import { ArrowUpRight, Rocket } from "lucide-react";
+import { marqueeLoop, startupProjectsQuery } from "@/lib/site-content";
+import { SectionHeading } from "./Reveal";
+
+export function StartupsTrustedUs() {
+  const { data = [] } = useQuery(startupProjectsQuery);
+  if (!data.length) return null;
+  const loop = marqueeLoop(data);
+  const half = loop.length / 2;
+  // ~7s per card keeps the pace steady however many projects there are.
+  const duration = `${half * 7}s`;
+
+  return (
+    <section className="overflow-hidden py-24">
+      <SectionHeading
+        eyebrow="Startup Work"
+        title={
+          <>
+            Startups <span className="text-gradient">Trusted Us</span>
+          </>
+        }
+        text="Ambitious startups chose ZEXOVA DIGITAL to design, build and launch their products."
+      />
+      <div
+        className="marquee-wrap relative mt-12 overflow-x-auto [scrollbar-width:none] md:overflow-hidden"
+        style={{
+          maskImage: "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent, black 6%, black 94%, transparent)",
+        }}
+      >
+        <ul
+          className="animate-marquee-slow flex w-max py-3"
+          style={{ animationDuration: duration }}
+        >
+          {loop.map((p, i) => {
+            const dup = i >= data.length;
+            return (
+              <li
+                key={`${p.id}-${i}`}
+                aria-hidden={dup || undefined}
+                className="w-72 shrink-0 pr-6 md:w-80"
+              >
+                <article className="group flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-glow">
+                  <div className="relative aspect-video overflow-hidden bg-muted">
+                    {p.image_url ? (
+                      <img
+                        src={p.image_url}
+                        alt={dup ? "" : p.title}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="bg-brand flex h-full w-full items-center justify-center text-primary-foreground">
+                        <Rocket className="size-10" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="font-bold">{p.title}</h3>
+                    {p.description && (
+                      <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">
+                        {p.description}
+                      </p>
+                    )}
+                    {p.website_url && (
+                      <a
+                        href={p.website_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={dup ? -1 : undefined}
+                        className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-semibold text-primary"
+                      >
+                        Visit website{" "}
+                        <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </a>
+                    )}
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
