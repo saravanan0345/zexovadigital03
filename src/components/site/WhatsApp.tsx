@@ -47,28 +47,29 @@ export function EnquiryLink({
 
 export function FloatingWhatsApp() {
   const number = useWhatsAppNumber();
-  if (!number)
-    return (
+
+  return (
+    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-2.5 md:bottom-6 md:right-6 md:gap-3">
       <Link
         to="/quote"
         aria-label="Start your project"
-        className="bg-brand shadow-glow fixed bottom-6 right-6 z-40 hidden items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-1 md:flex"
+        className="bg-brand shadow-glow flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl md:px-5 md:py-3 md:text-sm"
       >
-        <MessageSquare className="size-4" /> Let's talk
+        <MessageSquare className="size-3.5 md:size-4" /> Let's talk
       </Link>
-    );
-  return (
-    <a
-      href={waLink(number, DEFAULT_WA_MESSAGE)}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
-      className="group fixed bottom-5 right-5 z-40 flex size-14 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lg ring-1 ring-border/40 transition-all duration-300 hover:-translate-y-1 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring md:bottom-6 md:right-6"
-    >
-      <WhatsAppIcon className="size-7" />
-      <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block">
-        Chat with us on WhatsApp
-      </span>
-    </a>
+
+      <a
+        href={waLink(number, DEFAULT_WA_MESSAGE)}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
+        className="group flex size-12 items-center justify-center rounded-full bg-whatsapp text-whatsapp-foreground shadow-lg ring-1 ring-border/40 transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring md:size-14"
+      >
+        <WhatsAppIcon className="size-6 md:size-7" />
+        <span className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border bg-popover px-3 py-1.5 text-xs font-medium text-popover-foreground opacity-0 shadow-md transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block">
+          Chat with us on WhatsApp
+        </span>
+      </a>
+    </div>
   );
 }
