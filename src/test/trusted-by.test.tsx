@@ -58,7 +58,7 @@ describe("TrustedBy portfolio projects carousel", () => {
       </QueryClientProvider>,
     );
 
-    const heading = screen.getByText(/Trusted by/i);
+    const heading = screen.getByRole("heading", { level: 2, name: /TRUSTED BY CLIENT/i });
     expect(heading).toBeInTheDocument();
 
     const links = screen.getAllByRole("link", { name: /Acme Store/i, hidden: true });

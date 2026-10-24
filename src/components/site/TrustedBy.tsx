@@ -18,7 +18,7 @@ export function TrustedBy() {
         eyebrow="Client Work"
         title={
           <>
-            Trusted by <span className="text-gradient">Businesses</span>
+            TRUSTED BY <span className="text-gradient">CLIENT</span>
           </>
         }
         text="Real businesses. Real solutions. Digital experiences built with purpose."
