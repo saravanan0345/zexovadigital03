@@ -9,7 +9,7 @@ export function Footer() {
   const contact = st
     ? (
         [
-          ["Phone", st.phone, st.phone && `tel:${st.phone}`],
+          ["Phone", st.phone, st.phone && `tel:${st.phone.replace(/[^\d+]/g, "")}`],
           [
             "WhatsApp",
             st.whatsapp,
@@ -124,10 +124,14 @@ export function Footer() {
               <li key={l}>
                 {href ? (
                   <a href={href} className="hover:text-foreground">
+                    <span className="text-muted-foreground/80">{l}: </span>
                     {v}
                   </a>
                 ) : (
-                  <span>{v}</span>
+                  <span>
+                    <span className="text-muted-foreground/80">{l}: </span>
+                    {v}
+                  </span>
                 )}
               </li>
             ))}
