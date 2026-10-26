@@ -9,6 +9,7 @@ import { Reveal, SectionHeading } from "@/components/site/Reveal";
 import { CtaBand } from "@/components/site/CtaBand";
 import { TrustedBy } from "@/components/site/TrustedBy";
 import { StartupsTrustedUs } from "@/components/site/StartupsTrustedUs";
+import { CustomerReviews } from "@/components/site/CustomerReviews";
 import {
   processSteps,
   serviceCategories,
@@ -36,6 +37,7 @@ function Home() {
       <Hero />
       <TechTicker />
       <ServicesTabs />
+      <CustomerReviews />
       <WhyUs />
       <ProcessPreview />
       <TrustedBy />

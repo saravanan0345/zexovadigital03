@@ -28,6 +28,7 @@ import { Route as AdminChatsRouteImport } from './routes/admin.chats'
 import { Route as AdminEnquiriesRouteImport } from './routes/admin.enquiries'
 import { Route as AdminPricingRouteImport } from './routes/admin.pricing'
 import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminReviewsRouteImport } from './routes/admin.reviews'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminStartupsRouteImport } from './routes/admin.startups'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
@@ -129,6 +130,11 @@ const AdminProjectsRoute = AdminProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminReviewsRoute = AdminReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/startups': typeof AdminStartupsRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -199,6 +206,7 @@ export interface FileRoutesByTo {
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/startups': typeof AdminStartupsRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -226,6 +234,7 @@ export interface FileRoutesById {
   '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/pricing': typeof AdminPricingRoute
   '/admin/projects': typeof AdminProjectsRoute
+  '/admin/reviews': typeof AdminReviewsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/startups': typeof AdminStartupsRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/admin/enquiries'
     | '/admin/pricing'
     | '/admin/projects'
+    | '/admin/reviews'
     | '/admin/settings'
     | '/admin/startups'
     | '/projects/$slug'
@@ -279,6 +289,7 @@ export interface FileRouteTypes {
     | '/admin/enquiries'
     | '/admin/pricing'
     | '/admin/projects'
+    | '/admin/reviews'
     | '/admin/settings'
     | '/admin/startups'
     | '/projects/$slug'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/admin/enquiries'
     | '/admin/pricing'
     | '/admin/projects'
+    | '/admin/reviews'
     | '/admin/settings'
     | '/admin/startups'
     | '/projects/$slug'
@@ -466,6 +478,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminProjectsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/reviews': {
+      id: '/admin/reviews'
+      path: '/reviews'
+      fullPath: '/admin/reviews'
+      preLoaderRoute: typeof AdminReviewsRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/settings'
@@ -511,6 +530,7 @@ interface AdminRouteChildren {
   AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminPricingRoute: typeof AdminPricingRoute
   AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminReviewsRoute: typeof AdminReviewsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminStartupsRoute: typeof AdminStartupsRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -523,6 +543,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminPricingRoute: AdminPricingRoute,
   AdminProjectsRoute: AdminProjectsRoute,
+  AdminReviewsRoute: AdminReviewsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminStartupsRoute: AdminStartupsRoute,
   AdminIndexRoute: AdminIndexRoute,

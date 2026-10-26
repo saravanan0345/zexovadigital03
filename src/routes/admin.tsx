@@ -13,6 +13,7 @@ import {
   Tag,
   Menu,
   Rocket,
+  Star,
 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -33,6 +34,7 @@ export const Route = createFileRoute("/admin")({
 const nav = [
   { to: "/admin", label: "Dashboard Overview", icon: LayoutDashboard, exact: true },
   { to: "/admin/enquiries", label: "Enquiries", icon: Inbox },
+  { to: "/admin/reviews", label: "Customer Reviews", icon: Star },
   { to: "/admin/chats", label: "Direct Chats", icon: MessagesSquare },
   { to: "/admin/projects", label: "Portfolio Projects", icon: FolderKanban },
   { to: "/admin/startups", label: "Startup Projects", icon: Rocket },
