@@ -24,10 +24,10 @@ export function Logo() {
         animate={{ opacity: 1, rotate: 0, scale: 1 }}
         transition={{ duration: 0.8 }}
         src={zmark}
-        alt=""
-        width={375}
-        height={197}
-        className="h-8 w-auto"
+        alt="ZEXOVA DIGITAL"
+        width={512}
+        height={512}
+        className="size-9 shrink-0 rounded-full object-contain"
       />
       <span className="font-display text-lg font-extrabold leading-none tracking-tight">
         ZEXOVA <span className="text-gradient">DIGITAL</span>

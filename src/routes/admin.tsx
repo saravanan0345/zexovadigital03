@@ -108,7 +108,7 @@ function AdminLayout() {
         className={`fixed inset-y-0 left-0 z-40 w-64 border-r bg-card transition-transform md:static md:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex items-center gap-2 border-b px-5 py-4">
-          <img src={zmark} alt="" className="h-7 w-auto" />
+          <img src={zmark} alt="ZEXOVA DIGITAL" className="size-8 rounded-full object-contain" />
           <span className="font-display font-extrabold">
             ZEXOVA <span className="text-gradient">ADMIN</span>
           </span>
@@ -180,7 +180,7 @@ function AdminLogin() {
   return (
     <div className="dark flex min-h-screen items-center justify-center bg-hero px-6 text-foreground">
       <form onSubmit={submit} className="glass w-full max-w-sm space-y-4 rounded-2xl p-8">
-        <img src={zmark} alt="" className="mx-auto h-10 w-auto" />
+        <img src={zmark} alt="ZEXOVA DIGITAL" className="mx-auto size-14 rounded-full object-contain" />
         <h1 className="text-center text-xl font-bold">Admin sign in</h1>
         <div className="space-y-2">
           <Label htmlFor="un">Username</Label>

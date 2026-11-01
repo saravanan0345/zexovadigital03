@@ -37,12 +37,12 @@ function Home() {
       <Hero />
       <TechTicker />
       <ServicesTabs />
-      <CustomerReviews />
       <WhyUs />
       <ProcessPreview />
       <TrustedBy />
       <IndustriesStrip />
       <StartupsTrustedUs />
+      <CustomerReviews />
       <CtaBand />
     </>
   );
